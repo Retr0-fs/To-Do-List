@@ -1,0 +1,368 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #2d3748;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-20px) scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(120%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+h1 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.todo-input {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+#taskInput:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    outline: none;
+}
+
+button {
+    background: #667eea;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transform: scale(1);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.schedule-btn {
+    background: #4CAF50;
+}
+
+.schedule-btn:hover {
+    background: #45a049;
+}
+
+.schedule-container {
+    margin: -10px 0 20px;
+    padding: 0 4px;
+}
+
+.schedule-container.hidden {
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: white;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item.completed {
+    background: #f7fafc;
+    border-color: #e2e8f0;
+}
+
+.todo-item.completed span {
+    text-decoration: line-through;
+}
+
+.todo-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    border-radius: 6px;
+}
+
+.todo-item span {
+    flex: 1;
+    font-size: 16px;
+}
+
+.todo-item .delete-btn {
+    margin-left: auto;
+    background: #ff6b6b;
+    padding: 5px 10px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.todo-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.todo-item .schedule-info {
+    font-size: 0.85em;
+    color: #718096;
+    background: #f7fafc;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-left: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.todo-item .schedule-info:hover {
+    background: #bbdefb;
+}
+
+/* Styles pour les notifications */
+.notification {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    padding: 16px;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.notification.info {
+    border-left: 4px solid #2196F3;
+}
+
+.notification.success {
+    border-left: 4px solid #4CAF50;
+}
+
+.notification.warning {
+    border-left: 4px solid #FFC107;
+}
+
+.notification.error {
+    border-left: 4px solid #FF5722;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.hidden {
+    transform: translateX(120%);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-content i.fa-bell {
+    color: #667eea;
+    font-size: 1.2em;
+}
+
+.notification-content p {
+    margin: 0;
+    color: #333;
+}
+
+.notification-content button {
+    background: none;
+    border: none;
+    padding: 5px;
+    color: #666;
+    cursor: pointer;
+}
+
+.notification-content button:hover {
+    color: #ff6b6b;
+}
+
+/* Styles pour le toggle de notification */
+.notification-toggle {
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.toggle-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e2e8f0;
+    transition: .4s;
+    border-radius: 26px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:checked + .toggle-slider {
+    background-color: #667eea;
+}
+
+input:focus + .toggle-slider {
+    box-shadow: 0 0 1px #667eea;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* Indicateur mode hors-ligne */
+.offline-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #fed7d7;
+    border-radius: 10px;
+    color: #c53030;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.offline-indicator.hidden {
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+
+    #taskDateTime {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        background: white;
+        font-size: 15px;
+    }
+    
+    .todo-item {
+        flex-wrap: wrap;
+    }
+    
+    .todo-item .schedule-info {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
